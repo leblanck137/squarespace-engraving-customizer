@@ -246,7 +246,12 @@ color:rgba(0,0,0,0.5);
 
 
 /* Controls column in the lightbox */
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .sliders {
+=======
+#tlc-customizer-root #tlc-lightbox .sliders,
+#tlc-lightbox .sliders {
+// main
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -257,7 +262,12 @@ color:rgba(0,0,0,0.5);
 }
 
 /* One container per control group */
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .slider-container {
+=======
+#tlc-customizer-root .slider-container,
+#tlc-lightbox .slider-container {
+// main
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -276,7 +286,12 @@ color:rgba(0,0,0,0.5);
 }
 
 /* Labels above controls */
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .slider label {
+=======
+#tlc-customizer-root .slider label,
+#tlc-lightbox .slider label {
+// main
   display: block;
   text-align: center;
   color: #fff;
@@ -284,7 +299,12 @@ color:rgba(0,0,0,0.5);
 }
 
 /* Slider width */
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .slider input {
+=======
+#tlc-customizer-root .slider input,
+#tlc-lightbox .slider input {
+// main
   width: 100%;
 }
 
@@ -296,18 +316,33 @@ color:rgba(0,0,0,0.5);
 
 
 /* Movement buttons */
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .movement-button-set {
+=======
+#tlc-customizer-root .movement-button-set,
+#tlc-lightbox .movement-button-set {
+// main
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 10px;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .movement-button-container {
+=======
+#tlc-customizer-root .movement-button-container,
+#tlc-lightbox .movement-button-container {
+// main
   display: flex;
   justify-content: center;
   gap: 12px;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .movement-button-container button {
+=======
+#tlc-customizer-root .movement-button-container button,
+#tlc-lightbox .movement-button-container button {
+// main
   width: 55px;
   height: 30px;
   background-color: #7FBF6E;
@@ -317,20 +352,35 @@ color:rgba(0,0,0,0.5);
 }
 
 /* Size preset buttons */
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .container {
+=======
+#tlc-customizer-root .container,
+#tlc-lightbox .container {
+// main
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center !important;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .size-buttons {
+=======
+#tlc-customizer-root .size-buttons,
+#tlc-lightbox .size-buttons {
+// main
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 10px;
   margin-top: 5px;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .size-buttons button {
+=======
+#tlc-customizer-root .size-buttons button,
+#tlc-lightbox .size-buttons button {
+// main
   background-color: #7FBF6E;
   border: none;
   color: #000;
@@ -340,10 +390,19 @@ color:rgba(0,0,0,0.5);
   margin: 3px 2px;
   cursor: pointer;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .size-buttons button:active { background-color: #5d8c55; }
 
 /* Field titles */
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .custom-label {
+=======
+#tlc-customizer-root .size-buttons button:active,
+#tlc-lightbox .size-buttons button:active { background-color: #5d8c55; }
+
+/* Field titles */
+#tlc-customizer-root .custom-label,
+#tlc-lightbox .custom-label {
+// main
   color: #fff;
   text-align: center;
   font-size: 20px;
@@ -352,23 +411,42 @@ color:rgba(0,0,0,0.5);
 }
 
 /* Text/Image field groups */
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) #text-fields-container,
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) #image-fields-container {
+=======
+#tlc-customizer-root #text-fields-container,
+#tlc-customizer-root #image-fields-container,
+#tlc-lightbox #text-fields-container,
+#tlc-lightbox #image-fields-container {
+// main
   display: flex;
   justify-content: center;
   gap: 10px;
   overflow: auto;
   width: 100%;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .text-container,
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .image-container {
+=======
+#tlc-customizer-root .text-container,
+#tlc-customizer-root .image-container,
+#tlc-lightbox .text-container,
+#tlc-lightbox .image-container {
+// main
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 /* Toggle switch */
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox {
+=======
+#tlc-customizer-root .toggle-checkbox,
+#tlc-lightbox .toggle-checkbox {
+// main
   -webkit-appearance: none;
   appearance: none;
   position: relative;
@@ -380,8 +458,15 @@ color:rgba(0,0,0,0.5);
   cursor: pointer;
   background: none;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:before,
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:after {
+=======
+#tlc-customizer-root .toggle-checkbox:before,
+#tlc-customizer-root .toggle-checkbox:after,
+#tlc-lightbox .toggle-checkbox:before,
+#tlc-lightbox .toggle-checkbox:after {
+// main
   position: absolute;
   left: 5px;
   top: 5px;
@@ -395,13 +480,23 @@ color:rgba(0,0,0,0.5);
   transition: all .3s ease-out;
   box-sizing: border-box;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:before {
+=======
+#tlc-customizer-root .toggle-checkbox:before,
+#tlc-lightbox .toggle-checkbox:before {
+// main
   content: "BACK";
   color: #d93816;
   border-color: #ff6645;
   background: #ffddcc;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:after {
+=======
+#tlc-customizer-root .toggle-checkbox:after,
+#tlc-lightbox .toggle-checkbox:after {
+// main
   left: auto;
   right: 5px;
   content: "FRONT";
@@ -410,11 +505,22 @@ color:rgba(0,0,0,0.5);
   background: #ccffbb;
   opacity: .4;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:checked:after { opacity: 1; }
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:checked:before { opacity: .4; }
 
 /* Delete buttons */
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .delete-button {
+=======
+#tlc-customizer-root .toggle-checkbox:checked:after,
+#tlc-lightbox .toggle-checkbox:checked:after { opacity: 1; }
+#tlc-customizer-root .toggle-checkbox:checked:before,
+#tlc-lightbox .toggle-checkbox:checked:before { opacity: .4; }
+
+/* Delete buttons */
+#tlc-customizer-root .delete-button,
+#tlc-lightbox .delete-button {
+// main
   width: 40px;
   background-color: #7FBF6E;
   border-radius: 4px;
@@ -426,16 +532,30 @@ color:rgba(0,0,0,0.5);
   display: block;
   cursor: pointer;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .delete-button:active { background-color: #5d8c55; }
 
 /* Font dropdown */
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .dropdown {
+=======
+#tlc-customizer-root .delete-button:active,
+#tlc-lightbox .delete-button:active { background-color: #5d8c55; }
+
+/* Font dropdown */
+#tlc-customizer-root .dropdown,
+#tlc-lightbox .dropdown {
+// main
   position: relative;
   display: inline-block;
   text-align: center;
   margin-top: 10px;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .dropdown-content {
+=======
+#tlc-customizer-root .dropdown-content,
+#tlc-lightbox .dropdown-content {
+// main
   display: none;
   position: fixed;            /* pin to viewport */
   top: 2.5vh;
@@ -447,7 +567,12 @@ color:rgba(0,0,0,0.5);
   text-align: center;
   background-color: rgba(255, 0, 0, 0.2);
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .dropdown-content a {
+=======
+#tlc-customizer-root .dropdown-content a,
+#tlc-lightbox .dropdown-content a {
+// main
   color: #000;
   background-color: #fff;
   padding: 10px 5px;
@@ -455,8 +580,42 @@ color:rgba(0,0,0,0.5);
   display: block;
   border-bottom: 1px solid #ddd;
 }
+// codex/fix-lightbox-controls-styling-in-customcss.css-55h1zs
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .dropdown-content a:last-child { border-bottom: none; }
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .dropdown-content.show { display: block; }
+=======
+#tlc-customizer-root .dropdown-content a:last-child,
+#tlc-lightbox .dropdown-content a:last-child { border-bottom: none; }
+#tlc-customizer-root .dropdown-content.show,
+#tlc-lightbox .dropdown-content.show { display: block; }
+
+
+
+#tlc-customizer-root .lightbox-btn:active { background-color: #5d8c55; }
+#tlc-customizer-root #add-text.disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+
+
+
+
+
+/* Small screens */
+@media (max-width: 640px) {
+  #tlc-customizer-root .lightbox-btn {
+    width: 68px;
+    font-size: 16px;
+  }
+}
+
+
+
+
+
+
+// main
 
 /* Size cap for the content area (optional, keeps lines reasonable on big screens) */
 :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) {
@@ -620,3 +779,84 @@ color:rgba(0,0,0,0.5);
 
 
 
+/* === Mirror controls styling for unscoped lightbox === */
+/* Containers / layout */
+#tlc-lightbox .sliders { display:block; width:100%; margin-top:8px; }
+#tlc-lightbox .slider-container {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  max-width:600px;
+  color:#fff;
+  text-align:center;
+}
+#tlc-lightbox .slider-container input[type="text"] { margin:4px 0 12px; }
+#tlc-lightbox .slider label { display:block; text-align:center; color:#fff; }
+#tlc-lightbox .slider input { width:100%; }
+
+/* Movement buttons */
+#tlc-lightbox .movement-button-set { display:flex; flex-direction:column; align-items:center; margin-bottom:10px; }
+#tlc-lightbox .movement-button-container { display:flex; justify-content:center; gap:12px; }
+#tlc-lightbox .movement-button-container button {
+  width:55px; height:30px; background-color:#7FBF6E;
+  border-radius:8px; border:none; cursor:pointer;
+}
+
+/* Size preset buttons */
+#tlc-lightbox .container { display:flex; flex-direction:column; align-items:center; justify-content:center !important; }
+#tlc-lightbox .size-buttons { display:flex; flex-direction:row; justify-content:center; gap:10px; margin-top:5px; }
+#tlc-lightbox .size-buttons button {
+  background-color:#7FBF6E; border:none; color:#000;
+  padding:5px 10px; border-radius:4px; font-size:16px; margin:3px 2px; cursor:pointer;
+}
+#tlc-lightbox .size-buttons button:active { background-color:#5d8c55; }
+
+/* Font dropdown */
+#tlc-lightbox .dropdown { position:relative; display:inline-block; text-align:center; margin-top:10px; }
+#tlc-lightbox .dropdown-content {
+  display:none; position:fixed; top:2.5vh; transform:translateX(-50%) !important;
+  height:95vh; overflow-y:auto; min-width:160px; z-index:1000; text-align:center;
+  background:rgba(255,0,0,0.2); /* matches existing behavior */
+}
+#tlc-lightbox .dropdown-content.show { display:block; }
+#tlc-lightbox .dropdown-content a {
+  color:#000; background:#fff; padding:10px 5px; text-decoration:none; display:block; border-bottom:1px solid #ddd;
+}
+#tlc-lightbox .dropdown-content a:last-child { border-bottom:none; }
+
+/* Toggle switch */
+#tlc-lightbox .toggle-checkbox {
+  -webkit-appearance:none; appearance:none; position:relative; display:block;
+  width:135px; height:40px; margin-bottom:6px; border-radius:17px; cursor:pointer; background:none;
+}
+#tlc-lightbox .toggle-checkbox:before,
+#tlc-lightbox .toggle-checkbox:after {
+  position:absolute; left:5px; top:5px; width:55px; height:30px;
+  border:5px solid; border-radius:12px; text-align:center; line-height:20px; font-size:12px; transition:all .3s ease-out; box-sizing:border-box;
+}
+#tlc-lightbox .toggle-checkbox:before { content:"BACK"; color:#d93816; border-color:#ff6645; background:#ffddcc; }
+#tlc-lightbox .toggle-checkbox:after  { left:auto; right:5px; content:"FRONT"; border-color:#34a84d; color:#30ba4e; background:#ccffbb; opacity:.4; }
+#tlc-lightbox .toggle-checkbox:checked:after { opacity:1; }
+#tlc-lightbox .toggle-checkbox:checked:before { opacity:.4; }
+
+/* Delete button */
+#tlc-lightbox .delete-button {
+  width:40px; background-color:#7FBF6E; border-radius:4px; border:none; color:#000;
+  font-size:20px; font-family:Arial, sans-serif; margin:10px auto; display:block; cursor:pointer;
+}
+#tlc-lightbox .delete-button:active { background-color:#5d8c55; }
+
+/* Keep wrappers visually clean (no white cards) */
+#tlc-lightbox .container,
+#tlc-lightbox .slider-container,
+#tlc-lightbox .text-container,
+#tlc-lightbox .image-container,
+#tlc-lightbox .movement-button-set,
+#tlc-lightbox .size-buttons {
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  padding:0 !important;
+}
