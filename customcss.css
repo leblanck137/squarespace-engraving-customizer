@@ -1,0 +1,646 @@
+.form-wrapper .field-list .field .field-element {
+background-color:rgba(191,191,191,0.7);
+}
+
+
+
+
+.info-page-layout-poster #main-navigation {
+  width: 95%;
+}
+
+
+#innerWrapper #content .main-content-wrapper, #innerWrapper #content .filter {
+    width: 95%;
+}
+
+#innerWrapper #content {
+  padding-top:3%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Plugin Accotabs - Custom Styles */
+html .c-tabs__tablist::after {
+  border-bottom: 1px solid #000;
+}
+
+html .c-tabs__tablist li:not(:first-child) {
+  margin-left: 2px;
+}
+
+html .c-tabs__tablist:not([hidden]) li {
+  flex-shrink: 0;
+  -webkit-box-flex: 1;
+  flex: 1 1 0;
+}
+
+html .c-tabs__tab {
+  background: rgba(213,189,143,.3);
+  border: 0 solid #ccc;
+  border-radius: 8px 8px 0 0;
+  color: #303030;
+}
+
+html .c-tabs__tab::before {
+  top: auto;
+  bottom: -1px;
+  border-top: 4px solid #7fbf6e;
+}
+
+html .c-tabs.has-hover .c-tabs__tab:hover,html .c-tabs__tab[aria-selected=true] {
+  background: rgba(213,189,143,.3);
+  border: 0 solid #ccc;
+  border-bottom-color: transparent;
+  color: #303030;
+}
+
+html .c-tabs__accordion-tab {
+  background: rgba(213,189,143,.3);
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 1px 1px 1px 1px;
+  color: #303030;
+}
+
+html .c-tabs.has-hover .c-tabs__accordion-tab:hover,html .c-tabs__accordion-tab[aria-expanded=true] {
+  background: rgba(213,189,143,.7);
+  border: 2px solid rgba(0,0,0,.2);
+  color: #303030;
+}
+
+html .c-tabs__accordion-tab .c-tabs__tab-title::after,html .c-tabs__accordion-tab .c-tabs__tab-title::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%23303030%22%3E%3Cpath%20d%3D%22M7.406%207.828L12%2012.422l4.594-4.594L18%209.234l-6%206-6-6z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+html .c-tabs__tabpanel-inner {
+  padding: 2em 1em;
+}
+/* end Plugin Accotabs - Custom Styles */
+
+
+
+
+
+
+
+
+
+
+.product-mark.sold-out {
+text-indent:-9999px;
+}
+
+.product-mark.sold-out:after {
+content:'Out of Stock: Returning Soon';
+text-indent:0;
+display:block;
+margin-top:-1em;
+}
+
+
+.mybutton {
+   background-color: rgba(80,200,130,0.65);
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   border-radius: 6px;
+   display: inline-block;
+   cursor: pointer;
+   color: #333333;
+   font-weight: 600;
+   font-family: "adelle";
+   font-size: 13px;
+   padding: 4px 10px;
+   text-transform: none;
+   text-shadow: 0px 0px 0px #333333;
+ }
+ 
+ 
+ 
+ .mybutton:active {
+   position: relative;
+   top: 1px;
+ }
+
+
+::-webkit-input-placeholder,:-moz-placeholder,::-moz-placeholder,:-ms-input-placeholder {
+color:rgba(0,0,0,0.5);
+}
+
+#footer-sections {
+ position: fixed!important;
+ width: 100%!important;
+ bottom: 0!important;
+ z-index: 99!important
+}
+
+
+
+.iframe-container {
+  position: relative;
+  margin: 5px;
+  height: 0;
+  overflow: hidden;
+}
+
+.iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #7a8b8b;
+  /* put following styles (necessary for overflow and
+     scrolling handling) in div container around iframe
+     because not stable in CSS
+     -webkit-overflow-scrolling: touch;
+     overflow: auto; */
+}
+
+
+
+.iframe-container-for-wxh-500x350 {
+  padding: 10px 10px 70% 10px; /* padding-bottom = h/w as a % */
+}
+
+
+
+
+
+
+/* =========================
+   TL Customizer (scoped to injected DOM)
+   ========================= */
+
+/* Hide helper fields on product form */
+.form-field[data-title="Customizer Data (JSON)"],
+.form-field[data-title="Customizer Preview URL"] { display:none !important; }
+
+/* Hide native file input inside SQS modal (we attach files programmatically) */
+.sqs-modal-lightbox form input[type="file"] { display:none !important; }
+
+/* Lightbox container */
+#tlc-customizer-root #tlc-lightbox {
+  display: none;               /* JS toggles to flex */
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;             /* above SQS modal */
+  background-color: rgba(0,0,0,.9);
+  box-sizing: border-box;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Canvases */
+#tlc-customizer-root #tlc-lightbox canvas {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Close (X) */
+#tlc-customizer-root #close-lightbox {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1003;               /* above the add buttons */
+}
+
+/* On-product preview canvases (outside the lightbox) */
+#tlc-customizer-root #canvas-container,
+#tlc-customizer-root #second-canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  min-height: 120px;
+}
+#tlc-customizer-root #canvas-container { margin-bottom: 15px; }
+#tlc-customizer-root #second-canvas-container { margin-bottom: 0; }
+
+
+/* Controls column in the lightbox — compact, left-aligned (old look) */
+#tlc-customizer-root #tlc-lightbox .sliders,
+#tlc-lightbox .sliders {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  /* kill centering from the previous flex layout */
+  justify-content: initial;
+  align-items: initial;
+  gap: 0;
+}
+
+/* One container per control group */
+#tlc-customizer-root .slider-container,
+#tlc-lightbox .slider-container {
+  display: block;
+  width: 100%;
+  max-width: none;
+  color: #fff;
+  text-align: left;
+  /* remove any accidental padding from theme */
+  padding: 0;
+}
+
+/* Text input in the control card */
+#tlc-customizer-root .slider-container input[type="text"],
+#tlc-lightbox .slider-container input[type="text"] {
+  margin: 4px 0 12px;
+}
+
+/* Small, inline-ish labels above controls (not centered) */
+#tlc-customizer-root .slider label,
+#tlc-lightbox .slider label {
+  display: inline-block;
+  margin: 0 0 6px;
+  color: #fff;
+}
+
+/* Let sliders/buttons size naturally (not forced to 100% width) */
+#tlc-customizer-root .slider input,
+#tlc-lightbox .slider input {
+  width: auto;
+}
+
+
+/* Don’t show empty control containers */
+#tlc-customizer-root #tlc-lightbox .sliders:empty,
+#tlc-customizer-root #tlc-lightbox .slider-container:empty,
+#tlc-lightbox .sliders:empty,
+#tlc-lightbox .slider-container:empty {
+  display: none !important;
+}
+
+
+
+/* Movement buttons */
+#tlc-customizer-root .movement-button-set {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+#tlc-customizer-root .movement-button-container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+#tlc-customizer-root .movement-button-container button {
+  width: 55px;
+  height: 30px;
+  background-color: #7FBF6E;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Size preset buttons */
+#tlc-customizer-root .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center !important;
+}
+#tlc-customizer-root .size-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+#tlc-customizer-root .size-buttons button {
+  background-color: #7FBF6E;
+  border: none;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  margin: 3px 2px;
+  cursor: pointer;
+}
+#tlc-customizer-root .size-buttons button:active { background-color: #5d8c55; }
+
+/* Field titles */
+#tlc-customizer-root .custom-label {
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  margin-bottom: 0;
+}
+
+/* Text/Image field groups */
+#tlc-customizer-root #text-fields-container,
+#tlc-customizer-root #image-fields-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  overflow: auto;
+  width: 100%;
+}
+#tlc-customizer-root .text-container,
+#tlc-customizer-root .image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Toggle switch */
+#tlc-customizer-root .toggle-checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  display: block;
+  width: 135px;
+  height: 40px;
+  margin-bottom: 6px;
+  border-radius: 17px;
+  cursor: pointer;
+  background: none;
+}
+#tlc-customizer-root .toggle-checkbox:before,
+#tlc-customizer-root .toggle-checkbox:after {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 55px;
+  height: 30px;
+  border: 5px solid;
+  border-radius: 12px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 12px;
+  transition: all .3s ease-out;
+  box-sizing: border-box;
+}
+#tlc-customizer-root .toggle-checkbox:before {
+  content: "BACK";
+  color: #d93816;
+  border-color: #ff6645;
+  background: #ffddcc;
+}
+#tlc-customizer-root .toggle-checkbox:after {
+  left: auto;
+  right: 5px;
+  content: "FRONT";
+  border-color: #34a84d;
+  color: #30ba4e;
+  background: #ccffbb;
+  opacity: .4;
+}
+#tlc-customizer-root .toggle-checkbox:checked:after { opacity: 1; }
+#tlc-customizer-root .toggle-checkbox:checked:before { opacity: .4; }
+
+/* Delete buttons */
+#tlc-customizer-root .delete-button {
+  width: 40px;
+  background-color: #7FBF6E;
+  border-radius: 4px;
+  border: none;
+  color: #000;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  margin: 10px auto;
+  display: block;
+  cursor: pointer;
+}
+#tlc-customizer-root .delete-button:active { background-color: #5d8c55; }
+
+/* Font dropdown */
+#tlc-customizer-root .dropdown { 
+  position: relative; 
+  display: inline-block; 
+  text-align: center; 
+  margin-top: 10px; 
+}
+#tlc-customizer-root .dropdown-content {
+  display: none;
+  position: fixed;            /* pin to viewport */
+  top: 2.5vh;
+  transform: translateX(-50%) !important;
+  height: 95vh;
+  overflow-y: auto;
+  min-width: 160px;
+  z-index: 1000;
+  text-align: center;
+  background-color: rgba(255, 0, 0, 0.2);
+}
+#tlc-customizer-root .dropdown-content a {
+  color: #000;
+  background-color: #fff;
+  padding: 10px 5px;
+  text-decoration: none;
+  display: block;
+  border-bottom: 1px solid #ddd;
+}
+#tlc-customizer-root .dropdown-content a:last-child { border-bottom: none; }
+#tlc-customizer-root .dropdown-content.show { display: block; }
+
+
+
+#tlc-customizer-root .lightbox-btn:active { background-color: #5d8c55; }
+#tlc-customizer-root #add-text.disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+
+
+
+
+
+/* Small screens */
+@media (max-width: 640px) {
+  #tlc-customizer-root .lightbox-btn {
+    width: 68px;
+    font-size: 16px;
+  }
+}
+
+
+
+
+
+
+
+/* Size cap for the content area (optional, keeps lines reasonable on big screens) */
+#tlc-customizer-root #tlc-lightbox {
+  --lbbar-h: 64px; /* mobile toolbar height */
+}
+
+/* Button bar under canvases (desktop/tablet) */
+#tlc-customizer-root #tlc-lightbox .lightbox-actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* left & right buttons at edges */
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0 6px;
+}
+
+
+/* Tight, simple spacing between toolbar and controls (no overlay) */
+#tlc-customizer-root #tlc-lightbox .lightbox-actions,
+#tlc-lightbox .lightbox-actions {
+  margin: 6px 0 6px !important;
+}
+
+#tlc-customizer-root #tlc-lightbox .lightbox-actions + .sliders,
+#tlc-lightbox .lightbox-actions + .sliders {
+  margin-top: 0 !important;
+}
+
+
+
+/* Buttons now live in normal flow (no overlay) */
+#tlc-customizer-root .lightbox-btn {
+  position: static;
+  top: auto;
+  transform: none;
+  width: 80px;
+  background-color: #7FBF6E;
+  border-radius: 4px;
+  border: none;
+  color: #000;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  display: block;
+  cursor: pointer;
+  z-index: 1;
+}
+#tlc-customizer-root .lightbox-btn:active { background-color: #5d8c55; }
+#tlc-customizer-root #add-text.disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* Optional center price pill */
+#tlc-customizer-root #tlc-price.price-pill {
+  min-width: 96px;
+  padding: 6px 10px;
+  text-align: center;
+  color: #fff;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  font: 600 16px/1 Arial, sans-serif;
+}
+
+/* Hide the pill if it has no text */
+#tlc-customizer-root #tlc-price:empty { display: none !important; }
+
+/* Hide the whole bar until canvases have drawn once */
+#tlc-customizer-root #tlc-lightbox .lightbox-actions {
+  visibility: hidden;
+  pointer-events: none;
+}
+#tlc-customizer-root #tlc-lightbox.tlc-ready .lightbox-actions {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Mobile: turn the actions into a sticky bottom bar (not overlapping content) */
+@media (max-width: 640px) {
+  #tlc-customizer-root #tlc-lightbox .lightbox-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+    height: var(--lbbar-h);
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(6px);
+    z-index: 1002; /* above controls, below close button */
+  }
+
+  /* Make room so the fixed bar doesn't cover content */
+  #tlc-customizer-root #tlc-lightbox .sliders {
+    padding-bottom: calc(var(--lbbar-h) + 16px + env(safe-area-inset-bottom));
+  }
+
+  #tlc-customizer-root .lightbox-btn {
+    width: 68px;
+    font-size: 16px;
+  }
+
+  #tlc-customizer-root #tlc-price.price-pill {
+    min-width: 80px;
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+}
+
+/* --- TLC controls cleanup (keep the old minimal look) --- */
+#tlc-lightbox .container,
+#tlc-lightbox .slider-container,
+#tlc-lightbox .text-container,
+#tlc-lightbox .image-container,
+#tlc-lightbox .movement-button-set,
+#tlc-lightbox .movement-button-container, /* ← add this */
+#tlc-lightbox .size-buttons,
+#tlc-lightbox .dropdown,
+#tlc-lightbox .dropdown-content {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Keep the old compact controls: no card chrome on inline elements */
+#tlc-lightbox input,
+#tlc-lightbox button,
+#tlc-lightbox select,
+#tlc-lightbox label {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+
+/* Fallback so the lightbox paints even before other rules load */
+#tlc-lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;          /* JS switches to flex */
+  padding: 20px;
+  box-sizing: border-box;
+  background: rgba(0,0,0,.9);
+  z-index: 2147483647;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+
+
