@@ -245,74 +245,69 @@ color:rgba(0,0,0,0.5);
 #tlc-customizer-root #second-canvas-container { margin-bottom: 0; }
 
 
-/* Controls column in the lightbox — compact, left-aligned (old look) */
-#tlc-customizer-root #tlc-lightbox .sliders,
-#tlc-lightbox .sliders {
-  display: block;
+/* Controls column in the lightbox */
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .sliders {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  margin-top: 8px;
-  /* kill centering from the previous flex layout */
-  justify-content: initial;
-  align-items: initial;
-  gap: 0;
+  margin-top: 4px;
+  gap: 20px;
 }
 
 /* One container per control group */
-#tlc-customizer-root .slider-container,
-#tlc-lightbox .slider-container {
-  display: block;
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  max-width: none;
+  max-width: 600px;
   color: #fff;
-  text-align: left;
-  /* remove any accidental padding from theme */
+  font-family: Arial, sans-serif;
+  text-align: center;
   padding: 0;
 }
 
 /* Text input in the control card */
-#tlc-customizer-root .slider-container input[type="text"],
-#tlc-lightbox .slider-container input[type="text"] {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .slider-container input[type="text"] {
   margin: 4px 0 12px;
 }
 
-/* Small, inline-ish labels above controls (not centered) */
-#tlc-customizer-root .slider label,
-#tlc-lightbox .slider label {
-  display: inline-block;
-  margin: 0 0 6px;
+/* Labels above controls */
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .slider label {
+  display: block;
+  text-align: center;
   color: #fff;
+  font-family: Arial, sans-serif;
 }
 
-/* Let sliders/buttons size naturally (not forced to 100% width) */
-#tlc-customizer-root .slider input,
-#tlc-lightbox .slider input {
-  width: auto;
+/* Slider width */
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .slider input {
+  width: 100%;
 }
-
 
 /* Don’t show empty control containers */
-#tlc-customizer-root #tlc-lightbox .sliders:empty,
-#tlc-customizer-root #tlc-lightbox .slider-container:empty,
-#tlc-lightbox .sliders:empty,
-#tlc-lightbox .slider-container:empty {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .sliders:empty,
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .slider-container:empty {
   display: none !important;
 }
 
 
-
 /* Movement buttons */
-#tlc-customizer-root .movement-button-set {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .movement-button-set {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 10px;
 }
-#tlc-customizer-root .movement-button-container {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .movement-button-container {
   display: flex;
   justify-content: center;
   gap: 12px;
 }
-#tlc-customizer-root .movement-button-container button {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .movement-button-container button {
   width: 55px;
   height: 30px;
   background-color: #7FBF6E;
@@ -322,20 +317,20 @@ color:rgba(0,0,0,0.5);
 }
 
 /* Size preset buttons */
-#tlc-customizer-root .container {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center !important;
 }
-#tlc-customizer-root .size-buttons {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .size-buttons {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 10px;
   margin-top: 5px;
 }
-#tlc-customizer-root .size-buttons button {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .size-buttons button {
   background-color: #7FBF6E;
   border: none;
   color: #000;
@@ -345,10 +340,10 @@ color:rgba(0,0,0,0.5);
   margin: 3px 2px;
   cursor: pointer;
 }
-#tlc-customizer-root .size-buttons button:active { background-color: #5d8c55; }
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .size-buttons button:active { background-color: #5d8c55; }
 
 /* Field titles */
-#tlc-customizer-root .custom-label {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .custom-label {
   color: #fff;
   text-align: center;
   font-size: 20px;
@@ -357,23 +352,23 @@ color:rgba(0,0,0,0.5);
 }
 
 /* Text/Image field groups */
-#tlc-customizer-root #text-fields-container,
-#tlc-customizer-root #image-fields-container {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) #text-fields-container,
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) #image-fields-container {
   display: flex;
   justify-content: center;
   gap: 10px;
   overflow: auto;
   width: 100%;
 }
-#tlc-customizer-root .text-container,
-#tlc-customizer-root .image-container {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .text-container,
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .image-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 /* Toggle switch */
-#tlc-customizer-root .toggle-checkbox {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox {
   -webkit-appearance: none;
   appearance: none;
   position: relative;
@@ -385,8 +380,8 @@ color:rgba(0,0,0,0.5);
   cursor: pointer;
   background: none;
 }
-#tlc-customizer-root .toggle-checkbox:before,
-#tlc-customizer-root .toggle-checkbox:after {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:before,
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:after {
   position: absolute;
   left: 5px;
   top: 5px;
@@ -400,13 +395,13 @@ color:rgba(0,0,0,0.5);
   transition: all .3s ease-out;
   box-sizing: border-box;
 }
-#tlc-customizer-root .toggle-checkbox:before {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:before {
   content: "BACK";
   color: #d93816;
   border-color: #ff6645;
   background: #ffddcc;
 }
-#tlc-customizer-root .toggle-checkbox:after {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:after {
   left: auto;
   right: 5px;
   content: "FRONT";
@@ -415,11 +410,11 @@ color:rgba(0,0,0,0.5);
   background: #ccffbb;
   opacity: .4;
 }
-#tlc-customizer-root .toggle-checkbox:checked:after { opacity: 1; }
-#tlc-customizer-root .toggle-checkbox:checked:before { opacity: .4; }
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:checked:after { opacity: 1; }
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .toggle-checkbox:checked:before { opacity: .4; }
 
 /* Delete buttons */
-#tlc-customizer-root .delete-button {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .delete-button {
   width: 40px;
   background-color: #7FBF6E;
   border-radius: 4px;
@@ -431,16 +426,16 @@ color:rgba(0,0,0,0.5);
   display: block;
   cursor: pointer;
 }
-#tlc-customizer-root .delete-button:active { background-color: #5d8c55; }
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .delete-button:active { background-color: #5d8c55; }
 
 /* Font dropdown */
-#tlc-customizer-root .dropdown { 
-  position: relative; 
-  display: inline-block; 
-  text-align: center; 
-  margin-top: 10px; 
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .dropdown {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  margin-top: 10px;
 }
-#tlc-customizer-root .dropdown-content {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .dropdown-content {
   display: none;
   position: fixed;            /* pin to viewport */
   top: 2.5vh;
@@ -452,7 +447,7 @@ color:rgba(0,0,0,0.5);
   text-align: center;
   background-color: rgba(255, 0, 0, 0.2);
 }
-#tlc-customizer-root .dropdown-content a {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .dropdown-content a {
   color: #000;
   background-color: #fff;
   padding: 10px 5px;
@@ -460,67 +455,26 @@ color:rgba(0,0,0,0.5);
   display: block;
   border-bottom: 1px solid #ddd;
 }
-#tlc-customizer-root .dropdown-content a:last-child { border-bottom: none; }
-#tlc-customizer-root .dropdown-content.show { display: block; }
-
-
-
-#tlc-customizer-root .lightbox-btn:active { background-color: #5d8c55; }
-#tlc-customizer-root #add-text.disabled {
-  background-color: #ccc;
-  color: #888;
-  cursor: not-allowed;
-}
-
-
-
-
-
-/* Small screens */
-@media (max-width: 640px) {
-  #tlc-customizer-root .lightbox-btn {
-    width: 68px;
-    font-size: 16px;
-  }
-}
-
-
-
-
-
-
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .dropdown-content a:last-child { border-bottom: none; }
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .dropdown-content.show { display: block; }
 
 /* Size cap for the content area (optional, keeps lines reasonable on big screens) */
-#tlc-customizer-root #tlc-lightbox {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) {
   --lbbar-h: 64px; /* mobile toolbar height */
 }
 
 /* Button bar under canvases (desktop/tablet) */
-#tlc-customizer-root #tlc-lightbox .lightbox-actions {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .lightbox-actions {
   width: 100%;
   display: flex;
-  justify-content: space-between; /* left & right buttons at edges */
+  justify-content: space-between;
   align-items: center;
   gap: 12px;
   margin: 10px 0 6px;
 }
 
-
-/* Tight, simple spacing between toolbar and controls (no overlay) */
-#tlc-customizer-root #tlc-lightbox .lightbox-actions,
-#tlc-lightbox .lightbox-actions {
-  margin: 6px 0 6px !important;
-}
-
-#tlc-customizer-root #tlc-lightbox .lightbox-actions + .sliders,
-#tlc-lightbox .lightbox-actions + .sliders {
-  margin-top: 0 !important;
-}
-
-
-
 /* Buttons now live in normal flow (no overlay) */
-#tlc-customizer-root .lightbox-btn {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .lightbox-btn {
   position: static;
   top: auto;
   transform: none;
@@ -536,15 +490,15 @@ color:rgba(0,0,0,0.5);
   cursor: pointer;
   z-index: 1;
 }
-#tlc-customizer-root .lightbox-btn:active { background-color: #5d8c55; }
-#tlc-customizer-root #add-text.disabled {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .lightbox-btn:active { background-color: #5d8c55; }
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) #add-text.disabled {
   background-color: #ccc;
   color: #888;
   cursor: not-allowed;
 }
 
 /* Optional center price pill */
-#tlc-customizer-root #tlc-price.price-pill {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) #tlc-price.price-pill {
   min-width: 96px;
   padding: 6px 10px;
   text-align: center;
@@ -556,21 +510,29 @@ color:rgba(0,0,0,0.5);
 }
 
 /* Hide the pill if it has no text */
-#tlc-customizer-root #tlc-price:empty { display: none !important; }
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) #tlc-price:empty { display: none !important; }
 
 /* Hide the whole bar until canvases have drawn once */
-#tlc-customizer-root #tlc-lightbox .lightbox-actions {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .lightbox-actions {
   visibility: hidden;
   pointer-events: none;
 }
-#tlc-customizer-root #tlc-lightbox.tlc-ready .lightbox-actions {
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox).tlc-ready .lightbox-actions {
   visibility: visible;
   pointer-events: auto;
 }
 
-/* Mobile: turn the actions into a sticky bottom bar (not overlapping content) */
+/* Tight, simple spacing between toolbar and controls (no overlay) */
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .lightbox-actions {
+  margin: 6px 0 6px !important;
+}
+:is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .lightbox-actions + .sliders {
+  margin-top: 0 !important;
+}
+
+/* Mobile adjustments */
 @media (max-width: 640px) {
-  #tlc-customizer-root #tlc-lightbox .lightbox-actions {
+  :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .lightbox-actions {
     position: fixed;
     left: 0;
     right: 0;
@@ -584,29 +546,39 @@ color:rgba(0,0,0,0.5);
   }
 
   /* Make room so the fixed bar doesn't cover content */
-  #tlc-customizer-root #tlc-lightbox .sliders {
+  :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .sliders {
     padding-bottom: calc(var(--lbbar-h) + 16px + env(safe-area-inset-bottom));
   }
 
-  #tlc-customizer-root .lightbox-btn {
+  :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) .lightbox-btn {
     width: 68px;
     font-size: 16px;
   }
 
-  #tlc-customizer-root #tlc-price.price-pill {
+  :is(#tlc-customizer-root #tlc-lightbox, #tlc-lightbox) #tlc-price.price-pill {
     min-width: 80px;
     font-size: 14px;
     padding: 6px 8px;
   }
 }
 
+
 /* --- TLC controls cleanup (keep the old minimal look) --- */
+#tlc-customizer-root .container,
+#tlc-customizer-root .slider-container,
+#tlc-customizer-root .text-container,
+#tlc-customizer-root .image-container,
+#tlc-customizer-root .movement-button-set,
+#tlc-customizer-root .movement-button-container,
+#tlc-customizer-root .size-buttons,
+#tlc-customizer-root .dropdown,
+#tlc-customizer-root .dropdown-content,
 #tlc-lightbox .container,
 #tlc-lightbox .slider-container,
 #tlc-lightbox .text-container,
 #tlc-lightbox .image-container,
 #tlc-lightbox .movement-button-set,
-#tlc-lightbox .movement-button-container, /* ← add this */
+#tlc-lightbox .movement-button-container,
 #tlc-lightbox .size-buttons,
 #tlc-lightbox .dropdown,
 #tlc-lightbox .dropdown-content {
@@ -617,6 +589,10 @@ color:rgba(0,0,0,0.5);
 }
 
 /* Keep the old compact controls: no card chrome on inline elements */
+#tlc-customizer-root #tlc-lightbox input,
+#tlc-customizer-root #tlc-lightbox button,
+#tlc-customizer-root #tlc-lightbox select,
+#tlc-customizer-root #tlc-lightbox label,
 #tlc-lightbox input,
 #tlc-lightbox button,
 #tlc-lightbox select,
