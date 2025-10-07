@@ -234,6 +234,213 @@ if (!document.getElementById('tlc-inline-style')) {
 }
 
 
+
+
+<!-- Full TLC lightbox skin (lives with markup) -->
+  // Inject the full, non-fallback skin once
+  if (!document.getElementById('tlc-lightbox-css')) {
+    const full = document.createElement('style');
+    full.id = 'tlc-lightbox-css';
+    full.textContent = `
+/* =========================
+   TLC Lightbox — full skin
+   ========================= */
+
+/* Lightbox shell */
+#tlc-lightbox{
+  position:fixed; inset:0; display:none;            /* JS sets to flex when open */
+  padding:20px; box-sizing:border-box;
+  background:rgba(0,0,0,.9); z-index:2147483647;
+  align-items:center; justify-content:center; flex-direction:column;
+}
+
+/* Toolbar under canvases (kept minimal & unintrusive) */
+#tlc-lightbox .lightbox-actions{
+  width:100%; display:flex; justify-content:space-between;
+  align-items:center; gap:12px; margin:6px 0;      /* tight gap */
+  visibility:hidden; pointer-events:none;          /* shown when ready */
+}
+#tlc-lightbox.tlc-ready .lightbox-actions{ visibility:visible; pointer-events:auto; }
+#tlc-lightbox .lightbox-actions + .sliders{ margin-top:0; }
+
+/* ---------- Controls: match the older working look ---------- */
+
+/* Controls column: stacked & centered */
+#tlc-lightbox .sliders{
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  justify-content:flex-start;
+  width:100%; 
+  margin-top:6px;
+}
+
+/* Each control card (text/image) — centered column */
+#tlc-lightbox .slider-container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:10px;
+
+  width:min(520px,92vw);
+  margin:0 auto 16px;
+
+  color:#fff; 
+  text-align:center; 
+  padding:0;
+  font-family:Arial, sans-serif;
+}
+
+/* Labels above controls */
+#tlc-lightbox .slider label{
+  display:block; 
+  margin:4px 0 2px; 
+  color:#fff; 
+  text-align:center;
+}
+
+/* Let inputs/slider size naturally (NOT forced to 100%) */
+#tlc-lightbox .slider input{ width:auto; }
+
+/* Range slider width + center */
+#tlc-lightbox .slider-container input[type="range"]{
+  display:block;
+  width:220px;
+  margin:6px auto 0;
+}
+
+/* “Font Size: 35” line under the slider */
+#tlc-lightbox .slider-container [id$="-size-label"]{
+  display:block;
+  margin:4px 0 0;
+  font-weight:700;
+  text-align:center;
+}
+
+/* Text field spacing + width + centering */
+#tlc-lightbox .slider-container input[type="text"]{
+  display:block;
+  width:min(260px,80vw);
+  margin:0 auto 6px;
+}
+
+/* Section title */
+#tlc-lightbox .custom-label{
+  color:#fff; text-align:center; font-size:20px; margin-bottom:0;
+}
+
+/* Movement buttons (← →) */
+#tlc-lightbox .movement-button-set{
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  gap:6px; 
+  margin-bottom:10px;
+}
+#tlc-lightbox .movement-button-container{ 
+  display:flex; 
+  justify-content:center; 
+  gap:12px; 
+}
+#tlc-lightbox .movement-button-container button{
+  width:55px; height:30px; background:#7FBF6E; border-radius:8px; border:none; cursor:pointer;
+}
+
+/* Size preset buttons */
+#tlc-lightbox .container{ display:flex; flex-direction:column; align-items:center; justify-content:center !important; }
+#tlc-lightbox .size-buttons{ display:flex; flex-direction:row; justify-content:center; gap:10px; margin-top:6px; }
+#tlc-lightbox .size-buttons button{
+  background:#7FBF6E; border:none; color:#000; padding:5px 10px; border-radius:4px; font-size:16px; margin:3px 2px; cursor:pointer;
+}
+#tlc-lightbox .size-buttons button:active{ background:#5d8c55; }
+
+/* BACK/FRONT toggle pill */
+#tlc-lightbox .toggle-checkbox{
+  -webkit-appearance:none; appearance:none; position:relative; display:block;
+  width:135px; height:40px; margin-bottom:6px; border-radius:17px; cursor:pointer; background:none;
+}
+#tlc-lightbox .toggle-checkbox:before,
+#tlc-lightbox .toggle-checkbox:after{
+  position:absolute; left:5px; top:5px; width:55px; height:30px;
+  border:5px solid; border-radius:12px; text-align:center; line-height:20px; font-size:12px;
+  transition:all .3s ease-out; box-sizing:border-box;
+}
+#tlc-lightbox .toggle-checkbox:before{ content:"BACK";  color:#d93816; border-color:#ff6645; background:#ffddcc; }
+#tlc-lightbox .toggle-checkbox:after { left:auto; right:5px; content:"FRONT"; border-color:#34a84d; color:#30ba4e; background:#ccffbb; opacity:.4; }
+#tlc-lightbox .toggle-checkbox:checked:after{ opacity:1; }
+#tlc-lightbox .toggle-checkbox:checked:before{ opacity:.4; }
+
+/* Delete button */
+#tlc-lightbox .delete-button{
+  width:40px; background:#7FBF6E; border-radius:4px; border:none; color:#000;
+  font-size:20px; font-family:Arial, sans-serif; margin:10px auto; display:block; cursor:pointer;
+}
+#tlc-lightbox .delete-button:active{ background:#5d8c55; }
+
+/* Font dropdown (same behavior you had) */
+#tlc-lightbox .dropdown{ 
+  position:relative; 
+  display:inline-block; 
+  text-align:center; 
+  margin-top:10px; 
+}
+#tlc-lightbox .dropdown .dropbtn{
+  background:#fff;
+  color:#000;
+  border:0;
+  border-radius:4px;
+  padding:6px 10px;
+  cursor:pointer;
+}
+#tlc-lightbox .dropdown-content{
+  display:none; 
+  position:fixed; 
+  top:2.5vh; 
+  left:50%;
+  transform:translateX(-50%) !important;
+  height:95vh; 
+  overflow-y:auto; 
+  min-width:160px; 
+  z-index:1000; 
+  text-align:center;
+  background-color:rgba(255,0,0,0.2);
+}
+#tlc-lightbox .dropdown-content a{
+  color:#000; background:#fff; padding:10px 5px; text-decoration:none; display:block; border-bottom:1px solid #ddd;
+}
+#tlc-lightbox .dropdown-content a:last-child{ border-bottom:none; }
+#tlc-lightbox .dropdown-content.show{ display:block; }
+
+/* Strip any theme “card chrome” so nothing turns white */
+#tlc-lightbox .container,
+#tlc-lightbox .slider-container,
+#tlc-lightbox .text-container,
+#tlc-lightbox .image-container,
+#tlc-lightbox .movement-button-set,
+#tlc-lightbox .size-buttons,
+#tlc-lightbox .dropdown,
+#tlc-lightbox .dropdown-content{
+  background:transparent !important; border:0 !important; box-shadow:none !important; padding:0 !important;
+}
+
+/* Mobile: keep the toolbar sticky if it’s visible */
+@media (max-width:640px){
+  #tlc-lightbox .lightbox-actions{
+    position:fixed !important; left:0; right:0; bottom:0; margin:0;
+    padding:8px 12px calc(8px + env(safe-area-inset-bottom));
+    height:64px; background:rgba(0,0,0,.6); backdrop-filter:blur(6px); z-index:2147483647;
+  }
+}
+    `;
+    document.head.appendChild(full);
+  }
+
+
+
+
+
+
   // Close button handler
   const closeBtn = document.getElementById('close-lightbox');
   if (closeBtn) closeBtn.addEventListener('click', function () {
