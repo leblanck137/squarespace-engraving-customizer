@@ -460,12 +460,41 @@ window.__tlcInject = injectCustomizerDOM;
     for (let i=0;i<bin.length;i++) u8[i] = bin.charCodeAt(i);
     return new File([u8], filename, {type:mime});
   }
-  function findFileInput(addForm){ return addForm.querySelector('input[type="file"]'); }
+  // function findFileInput(addForm){ return addForm.querySelector('input[type="file"]'); } - DELETED
+
+
+  // Ensure there's a hidden <input type="file" multiple> we can stuff with the generated PNGs.
+// If the visible uploader exists, we'll hide it (see Edit 2) and still re-use its input element.
+function ensureHiddenFileInput(addForm){
+  let inp = addForm.querySelector('input[type="file"]');
+  if (!inp) {
+    inp = document.createElement('input');
+    inp.type = 'file';
+    inp.name = 'Upload Files';         // name isn't critical, but good for consistency
+    inp.multiple = true;
+    inp.style.display = 'none';
+    addForm.appendChild(inp);
+  } else {
+    // if Squarespace renders a visible uploader, keep its input but hide it
+    inp.style.display = 'none';
+  }
+  return inp;
+}
+
+// Hide the visible uploader row/field if Squarespace rendered one.
+// We match by label text so it works across templates.
+function hideVisibleUploader(addForm){
+  const fieldWrappers = Array.from(addForm.querySelectorAll('.form-item, .sqs-field, label, legend, .field, .form-wrapper'));
+  const match = fieldWrappers.find(el => /upload files/i.test(el.textContent || ''));
+  if (match) match.style.display = 'none';
+}
+
 
   /* ---------- enhance any add-to-cart form ---------- */
   function enhanceForm(addForm){
     if (!addForm || addForm.dataset.tlcEnhanced) return;
     addForm.dataset.tlcEnhanced = '1';
+    hideVisibleUploader(addForm);
 
     const openBtn = document.createElement('button');
     openBtn.type = 'button';
@@ -490,7 +519,7 @@ window.__tlcInject = injectCustomizerDOM;
 
       const ts = Date.now();
 
-      const fileInput = findFileInput(addForm);
+      const fileInput = ensureHiddenFileInput(addForm);
       if (fileInput) {
         const dt = new DataTransfer();
         if (res.production && res.production.front && res.production.back) {
@@ -516,16 +545,21 @@ window.__tlcInject = injectCustomizerDOM;
       }
       jsonField.value = res.json || '';
 
-      // Optional note
-      const urlField = Array.from(addForm.querySelectorAll('input[type="text"]')).find(el => {
-        const t = (el.name || el.id || '').trim();
-        return t === 'Customizer Preview URL';
-      });
-      if (urlField) {
-        urlField.value = (res.production && res.production.front)
-          ? 'attached: engraving-front-' + ts + '.png'
-          : 'attached: engraving-preview-' + ts + '.png';
-      }
+    // Preview URL / note (create as hidden input if not present)
+    let urlField = Array.from(addForm.querySelectorAll('input[type="text"], input[name]')).find(el => {
+    const t = (el.name || el.id || '').trim();
+    return t === 'Customizer Preview URL';
+    });
+    if (!urlField) {
+    urlField = document.createElement('input');
+    urlField.type = 'text';
+    urlField.name = 'Customizer Preview URL';
+    urlField.style.display = 'none';
+    addForm.appendChild(urlField);
+    }
+    urlField.value = (res.production && res.production.front)
+    ? 'attached: engraving-front-' + ts + '.png'
+    : 'attached: engraving-preview-' + ts + '.png';
 
       const lb = document.getElementById('tlc-lightbox');
       if (lb) lb.style.display = 'none';
@@ -2755,82 +2789,218 @@ if (!window.__tlcInited && typeof window.TLC_INIT === 'function') {
 
 
 
-window.TLC_EXPORT = function () {
-  try {
-    const front = document.getElementById('lightbox-canvas');
-    const back  = document.getElementById('second-lightbox-canvas');
-    if (!front || !back) throw new Error('lightbox canvases not found');
 
-    // 1) Build data model (unchanged)
-    const payload = {
-      canvasW: front.width,
-      canvasH: front.height,
-      zones: { top: 0.16, bottom: 0.16 },
-      texts: (window.text || []).map((t, i) => ({
-        text: t,
-        size: (window.textSize?.[i] ?? 0),
-        x: (window.textX?.[i] ?? 0),
-        font: (window.textFont?.[i] ?? 'Arial'),
-        sideBack: !!(window.textToggleSwitchState?.[i])
-      })),
-      images: (window.images || []).map(img => ({
-        size: img.size,
-        x: img.x,
-        sideBack: !!img.toggleSwitchState
-      }))
-    };
 
-    // 2) Re-render **without** overlays/borders for production export
-    const hadDrawOverlays = typeof window.drawOverlays === 'function';
-    const savedDrawOverlays = window.drawOverlays;
-    window.drawOverlays = function(){};                // temporarily no overlays
-    if (typeof window.drawCanvas === 'function') window.drawCanvas();
-    if (typeof window.drawSecondCanvas === 'function') window.drawSecondCanvas();
+// --- Helper: make an offscreen canvas ---
+function tlcMakeOffscreen(w, h) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  return c;
+}
 
-    // 3) Production DPI export (set the size you want to engrave at)
-    // Example: treat the visible shaft length as 12.0 inches @ 600 DPI.
-    const ENGRAVE_LENGTH_IN = 12.0;
-    const DPI = 600;
+// --- Helper: draw ONLY the user's engraving (no wood) onto ctx ---
+// You’ll wire these two calls to whatever you already use to draw text/images.
+function tlcDrawEngravingOnly(ctx, side /* 'front' | 'back' */) {
+  ctx.save();
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  ctx.imageSmoothingEnabled = true;
 
-    function exportAtDPI(srcCanvas, lengthInches, dpi){
-      // preserve aspect ratio of the current canvas
-      const aspect = srcCanvas.height / srcCanvas.width;
-      const outWpx = Math.round(lengthInches * dpi);
-      const outHpx = Math.round(outWpx * aspect);
+  // ⬇️ IMPORTANT: call your existing “ink” draw routines here.
+  // Replace these two lines to match your code:
+  if (typeof window.drawLogosOnly === 'function') window.drawLogosOnly(ctx, side);
+  if (typeof window.drawTextsOnly === 'function') window.drawTextsOnly(ctx, side);
+  // If you currently draw everything in one “renderSide(ctx, side)” function,
+  // split that function OR add an `includeBase` flag and pass {includeBase:false}.
+  // Example:
+  //   window.renderSide(ctx, side, { includeBase: false })
+  ctx.restore();
+}
 
-      const tmp = document.createElement('canvas');
-      tmp.width = outWpx;
-      tmp.height = outHpx;
-      const tctx = tmp.getContext('2d');
-      tctx.imageSmoothingEnabled = true;
-      tctx.imageSmoothingQuality = 'high';
-      tctx.drawImage(srcCanvas, 0, 0, outWpx, outHpx);
-      return tmp.toDataURL('image/png'); // production file
+<!--
+    // --- Optional: crop away empty transparent bounds ---
+    // (If you prefer a fixed band crop, skip this and see the constants below.)
+    function tlcCropTransparent(srcCanvas, alphaThreshold = 1) {
+    const { width: W, height: H } = srcCanvas;
+    const src = srcCanvas.getContext('2d');
+    const data = src.getImageData(0, 0, W, H);
+    const px = data.data;
+
+    let minX = W, minY = H, maxX = -1, maxY = -1;
+
+    for (let y=0; y<H; y++) {
+        for (let x=0; x<W; x++) {
+        const i = (y*W + x) * 4;
+        const a = px[i+3];
+        if (a >= alphaThreshold) {
+            if (x < minX) minX = x;
+            if (y < minY) minY = y;
+            if (x > maxX) maxX = x;
+            if (y > maxY) maxY = y;
+        }
+        }
     }
 
-    const dataURL_front_preview = front.toDataURL('image/png');           // what customer saw
-    const dataURL_back_preview  = back.toDataURL('image/png');
+    // No ink? return original
+    if (maxX < 0) return srcCanvas;
 
-    const dataURL_front_prod = exportAtDPI(front, ENGRAVE_LENGTH_IN, DPI); // production scale
-    const dataURL_back_prod  = exportAtDPI(back,  ENGRAVE_LENGTH_IN, DPI);
+    const cw = maxX - minX + 1;
+    const ch = maxY - minY + 1;
+    const out = tlcMakeOffscreen(cw, ch);
+    out.getContext('2d').drawImage(srcCanvas, minX, minY, cw, ch, 0, 0, cw, ch);
+    return out;
+    }
+    -->
 
-    // 4) Restore overlays/borders
-    if (hadDrawOverlays) window.drawOverlays = savedDrawOverlays;
-    if (typeof window.drawCanvas === 'function') window.drawCanvas();
-    if (typeof window.drawSecondCanvas === 'function') window.drawSecondCanvas();
+
+// --- Optional: fixed vertical band crop (use this if you want full width, fixed top/bottom) ---
+// Set these to the pixel Y-coordinates of your engraving band ON THE EXPORT CANVAS.
+// If you don’t know them yet, leave disabled and stick with tlcCropTransparent().
+const TLC_BAND_CROP = {
+  enabled: false,      // set true to use fixed band crop instead of auto-trim
+  top:  0,             // e.g. 18
+  bottom: 0            // e.g. 72  (bottom is exclusive)
+};
+
+function tlcBandCrop(srcCanvas, band) {
+  if (!band.enabled) return srcCanvas;
+  const W = srcCanvas.width;
+  const top = Math.max(0, Math.min(srcCanvas.height, band.top|0));
+  const bottom = Math.max(top+1, Math.min(srcCanvas.height, band.bottom|0));
+  const H = bottom - top;
+  const out = tlcMakeOffscreen(W, H);
+  out.getContext('2d').drawImage(srcCanvas, 0, top, W, H, 0, 0, W, H);
+  return out;
+}
+
+// --- Make a transparent engraving PNG for a given side ---
+function tlcExportSideTransparent(side) {
+  const onScreen = (side === 'front')
+    ? document.getElementById('lightbox-canvas')
+    : document.getElementById('second-lightbox-canvas');
+
+  if (!onScreen) return null;
+
+  // Offscreen same size as your working canvas
+  const off = tlcMakeOffscreen(onScreen.width, onScreen.height);
+  const ctx = off.getContext('2d');
+
+  // draw ONLY ink
+  tlcDrawEngravingOnly(ctx, side);
+
+  // optional crop
+  const cropped = TLC_BAND_CROP.enabled
+    ? tlcBandCrop(off, TLC_BAND_CROP)
+    : tlcCropTransparent(off);
+
+  return cropped.toDataURL('image/png');
+}
+
+
+// Draw only the editable objects (text + uploaded images) onto ctx.
+// side: 'front' or 'back'. Uses the same normalized positions you already use.
+function tlcDrawObjectsOnly(ctx, canvas, side) {
+  ctx.save();
+
+  // ----- TEXT -----
+  for (var i = 0; i < text.length; i++) {
+    var goesOnBack = !!textToggleSwitchState[i];
+    if ((side === 'front' && goesOnBack) || (side === 'back' && !goesOnBack)) continue;
+
+    var px = (textSize[i] || 0) * canvas.height;               // you store size as canvas-height fraction
+    var fontFamily = textFont[i] || 'Arial';
+    ctx.font = Math.round(px) + 'px ' + fontFamily;
+    ctx.fillStyle = '#000';                                    // same fill used in your draw functions
+    ctx.textBaseline = 'middle';
+
+    // X comes in as a fraction of canvas width
+    var x = (textX[i] || 0) * canvas.width;
+
+    // Your UI draws text centered within the engraving band. This mirrors that.
+    // If your on-screen draw uses a slightly different baseline, adjust the y here
+    // to match (e.g. add/subtract a few px or reuse your existing y calc).
+    var y = canvas.height * 0.5;
+
+    var s = text[i] || '';
+    if (s) ctx.fillText(s, Math.round(x), Math.round(y));
+  }
+
+  // ----- IMAGES -----
+  for (var j = 0; j < images.length; j++) {
+    var img = images[j];
+    if (!img || !img.element || !img.element.width || !img.element.height) continue;
+
+    var goesOnBackI = !!img.toggleSwitchState;
+    if ((side === 'front' && goesOnBackI) || (side === 'back' && !goesOnBackI)) continue;
+
+    var h = (img.size || 0) * canvas.height;                   // size is a fraction of canvas height
+    var w = h * (img.element.width / img.element.height);
+    var xImg = (img.x || 0) * canvas.width;
+    var yImg = canvas.height * 0.5 - h / 2;                    // vertically centered like your UI
+
+    ctx.drawImage(img.element, Math.round(xImg), Math.round(yImg), Math.round(w), Math.round(h));
+  }
+
+  ctx.restore();
+}
+
+
+
+
+// Unified export: transparent, no crop, scale to 1" tall @ 400 DPI
+window.TLC_EXPORT = function () {
+  try {
+    // Helper: paint ink to an offscreen canvas (no background/guides)
+    function renderInkOnly(side) {
+      const live = (side === 'front') ? window.largeCanvas : window.secondLargeCanvas;
+      if (!live || !live.width || !live.height) throw new Error('Lightbox canvases not sized yet.');
+      const off = document.createElement('canvas');
+      off.width = live.width;
+      off.height = live.height;
+      const ctx = off.getContext('2d');
+      ctx.clearRect(0, 0, off.width, off.height);
+      // draw ONLY text/images from your data
+      tlcDrawObjectsOnly(ctx, off, side);
+      return off;
+    }
+
+    const frontOff = renderInkOnly('front');
+    const backOff  = renderInkOnly('back');
+
+    // Scale to 1-1/16" tall @ 400 DPI (=> 400 px height), preserve aspect ratio
+    const TARGET_INCH = 1.0625;
+    const DPI = 400;
+    const TARGET_H = Math.round(TARGET_INCH * DPI);
+
+    function toHeightPxPNG(srcCanvas, targetH) {
+      const targetW = Math.round(targetH * (srcCanvas.width / srcCanvas.height));
+      const out = document.createElement('canvas');
+      out.width = targetW;
+      out.height = targetH;
+      const octx = out.getContext('2d');
+      octx.imageSmoothingEnabled = true;
+      octx.imageSmoothingQuality = 'high';
+      octx.clearRect(0, 0, targetW, targetH);
+      octx.drawImage(srcCanvas, 0, 0, targetW, targetH);
+      return out.toDataURL('image/png');
+    }
+
+    const frontPNG = toHeightPxPNG(frontOff, TARGET_H);
+    const backPNG  = toHeightPxPNG(backOff, TARGET_H);
 
     return {
       ok: true,
-      json: JSON.stringify(payload),
-      preview: { front: dataURL_front_preview, back: dataURL_back_preview },
-      production: { front: dataURL_front_prod, back: dataURL_back_prod },
-      meta: { dpi: DPI, lengthInches: ENGRAVE_LENGTH_IN }
+      production: { front: frontPNG, back: backPNG },
+      preview: null,
+      json: JSON.stringify({
+        text, textSize, textX, textFont, images, textToggleSwitchState, imageToggleSwitchState
+      })
     };
   } catch (e) {
     console.error('TLC_EXPORT failed:', e);
     return { ok: false, error: String(e) };
   }
 };
+
 
 /* End: customization copy.js */
 </script>
